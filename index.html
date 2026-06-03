@@ -994,18 +994,20 @@ function hideInfo() {
 function toggleInfo(e, el) {
   e.stopPropagation();
   const popup = document.getElementById('info-popup');
-  // Aynı icona tekrar tıklanırsa kapat
   if (popup._srcEl === el && popup.style.display === 'block') { popup.style.display = 'none'; popup._srcEl = null; return; }
   popup._srcEl = el;
   popup.textContent = el.getAttribute('data-tip');
   popup.style.display = 'block';
+  // Önce görünür yap, sonra boyutunu al ve pozisyonla
   const r = el.getBoundingClientRect();
   const pw = popup.offsetWidth;
   const ph = popup.offsetHeight;
   const margin = 12;
+  // Sol pozisyon: sağa taşarsa sola kaydır
   let left = r.left;
   if (left + pw + margin > window.innerWidth) left = window.innerWidth - pw - margin;
   if (left < margin) left = margin;
+  // Üst pozisyon: alta taşarsa ikonun üstünde göster
   let top = r.bottom + 8;
   if (top + ph + margin > window.innerHeight) top = r.top - ph - 8;
   if (top < margin) top = margin;
