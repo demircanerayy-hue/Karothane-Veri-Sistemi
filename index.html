@@ -785,6 +785,7 @@ onValue(dbRef, (snapshot) => {
     wells = []; nextId = 1;
   }
   setStatus(true, new Date().toLocaleTimeString('tr-TR'));
+  document.getElementById('q-search').value = '';
   render();
 }, () => setStatus(false, new Date().toLocaleTimeString('tr-TR')));
 
