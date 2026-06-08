@@ -832,19 +832,11 @@ function renderStats() {
     const gun = parseFloat(w.metraj_guncell)||0;
     return plan > 0 && gun >= plan * 0.85 && gun < plan;
   });
-  const biten = wells.filter(w => {
-    if (w.durum === 'tamamlandi') return false;
-    const plan = parseFloat(w.metraj_plan)||0;
-    const gun = parseFloat(w.metraj_guncell)||0;
-    return plan > 0 && gun >= plan;
-  });
   const uyariBox = document.getElementById('plan-uyari-box');
   const uyariText = document.getElementById('plan-uyari-text');
-  if (yaklasan.length > 0 || biten.length > 0) {
+  if (yaklasan.length > 0) {
     uyariBox.style.display = 'flex';
-    let msg = '';
-    if (biten.length > 0) msg += `${biten.length} kuyu plan metrajını tamamladı (${biten.map(w=>w.kuyu).join(', ')}). `;
-    if (yaklasan.length > 0) msg += `${yaklasan.length} kuyu plan metrajına yaklaşıyor: ${yaklasan.map(w=>w.kuyu+' (%'+mpct(w)+', '+(parseFloat(w.metraj_plan)-parseFloat(w.metraj_guncell)).toFixed(1)+' m kaldı)').join(', ')}.`;
+    let msg = `${yaklasan.length} kuyu plan metrajına yaklaşıyor: ${yaklasan.map(w=>w.kuyu+' (%'+mpct(w)+', '+(parseFloat(w.metraj_plan)-parseFloat(w.metraj_guncell)).toFixed(1)+' m kaldı)').join(', ')}.`;
     uyariText.textContent = msg;
   } else {
     uyariBox.style.display = 'none';
